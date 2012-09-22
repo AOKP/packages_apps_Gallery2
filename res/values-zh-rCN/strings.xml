@@ -20,7 +20,7 @@
     <string name="pref_camera_power_shutter_default">关闭</string>
     <string name="pref_camera_focusmode_entry_fixed">定焦</string>
     <string name="pref_camera_focusmode_entry_facedetect">面部检测</string>
-    <string name="pref_camera_focusmode_entry_continuouspicture">连拍</string>
+    <string name="pref_camera_focusmode_entry_continuouspicture">连续</string>
     <string name="pref_camera_iso_entry_auto">自动</string>
     <string name="pref_camera_iso_entry_isodeblur">自动 (HJR)</string>
     <string name="pref_camera_scenemode_entry_backlight">逆光</string>
@@ -69,6 +69,59 @@
     <string name="pref_camera_scenemode_entry_candlelight">微光</string>
     <string name="pref_camera_scenemode_entry_flowers">花朵</string>
     <string name="pref_camera_scenemode_entry_ar">AR</string>
+
+    <!-- Settings screen, Timer mode title -->
+    <string name="pref_camera_timer_title">倒计时模式</string>
+
+    <!-- Settings screen, Timer mode entries -->
+    <string name="pref_camera_timer_entry_0">关闭</string>
+    <string name="pref_camera_timer_entry_10">10秒</string>
+    <string name="pref_camera_timer_entry_20">20秒</string>
+    <string name="pref_camera_timer_entry_30">30秒</string>
+    <string name="pref_camera_timer_entry_40">40秒</string>
+    <string name="pref_camera_timer_entry_50">50秒</string>
+    <string name="pref_camera_timer_entry_60">60秒</string>
+
+    <!-- Settings screen, Burst mode title -->
+    <string name="pref_camera_burst_title">连拍模式</string>
+
+    <!-- Settings screen, Burst mode entries -->
+    <string name="pref_camera_burst_entry_off">关闭</string>
+    <string name="pref_camera_burst_entry_5">5 连拍</string>
+    <string name="pref_camera_burst_entry_10">10 连拍</string>
+    <string name="pref_camera_burst_entry_15">15 连拍</string>
+    <string name="pref_camera_burst_entry_20">20 连拍</string>
+
+    <!-- Settings screen, JPEG -->
+    <string name="pref_camera_jpeg_title">图片质量</string>
+
+    <!-- Settings screen, JPEG dialog radio button choices -->
+    <string name="pref_camera_jpeg_entry_super">超高</string>
+    <string name="pref_camera_jpeg_entry_high">高</string>
+    <string name="pref_camera_jpeg_entry_medium">中</string>
+    <string name="pref_camera_jpeg_entry_low">低</string>
+
+    <!-- More Settings screen, volume zoom setting title text -->
+    <string name="pref_camera_volumezoom_title">音量键缩放</string>
+
+    <!-- More Settings screen, Volume zoom dialog choices -->
+    <string name="pref_camera_volumezoom_entry_off">关闭</string>
+    <string name="pref_camera_volumezoom_entry_on">打开</string>
+
+    <!-- Other settings -->
+    <string name="pref_camera_focus_title">触摸对焦持续时间</string>
+    <string name="pref_camera_focus_summary">为触摸对焦选择持续时间</string>
+
+    <!-- Settings screen, Timer mode entries -->
+    <string name="pref_camera_focus_entry_10">10秒</string>
+    <string name="pref_camera_focus_entry_15">15秒</string>
+    <string name="pref_camera_focus_entry_20">20秒</string>
+    <string name="pref_camera_focus_entry_30">30秒</string>
+    <string name="pref_camera_focus_entry_40">40秒</string>
+    <string name="pref_camera_focus_entry_infinit">无限</string>
+
+    <string name="pref_camera_whitebalance_entry_cloudydaylight">阴天日光</string>
+
     <string name="app_name" msgid="1928079047368929634">"图库"</string>
     <string name="gadget_title" msgid="259405922673466798">"相框"</string>
     <string name="details_ms" msgid="940634969189855292">"%1$02d:%2$02d"</string>
