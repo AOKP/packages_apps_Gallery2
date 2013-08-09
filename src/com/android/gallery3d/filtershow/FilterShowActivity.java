@@ -719,7 +719,7 @@ public class FilterShowActivity extends FragmentActivity implements OnItemClickL
             case R.id.undoButton: {
                 HistoryAdapter adapter = mMasterImage.getHistory();
                 int position = adapter.undo();
-                mImageShow.onHistoryItemClick(position);
+                mMasterImage.onHistoryItemClick(position);
                 mImageShow.showToast(getString(R.string.filtershow_undo_toast));
                 backToMain();
                 invalidateViews();
@@ -728,7 +728,7 @@ public class FilterShowActivity extends FragmentActivity implements OnItemClickL
             case R.id.redoButton: {
                 HistoryAdapter adapter = mMasterImage.getHistory();
                 int position = adapter.redo();
-                mImageShow.onHistoryItemClick(position);
+                mMasterImage.onHistoryItemClick(position);
                 mImageShow.showToast(getString(R.string.filtershow_redo_toast));
                 invalidateViews();
                 return true;
