@@ -145,7 +145,9 @@ public class VideoModule implements CameraModule,
 
     private boolean mSwitchingCamera;
     private boolean mMediaRecorderRecording = false;
+    private boolean mMediaRecorderPausing = false;
     private long mRecordingStartTime;
+    private long mRecordingTotalTime;
     private boolean mRecordingTimeCountsDown = false;
     private long mOnResumeTime;
     // The video file that the hardware camera is about to record into
@@ -531,6 +533,8 @@ public class VideoModule implements CameraModule,
             }
         }
 
+        //If recording pause, ignore livesnapshot
+        if (mMediaRecorderPausing) return;
         if (mMediaRecorderRecording && effectsActive()) {
             new RotateTextToast(mActivity, R.string.disable_video_snapshot_hint,
                     mOrientation).show();
@@ -1586,7 +1590,7 @@ public class VideoModule implements CameraModule,
 
     private void saveVideo() {
         if (mVideoFileDescriptor == null) {
-            long duration = SystemClock.uptimeMillis() - mRecordingStartTime;
+            long duration = SystemClock.uptimeMillis() - mRecordingStartTime + mRecordingTotalTime;
             if (duration > 0) {
                 if (mCaptureTimeLapse) {
                     duration = getTimeLapseVideoLength(duration);
@@ -1735,9 +1739,12 @@ public class VideoModule implements CameraModule,
         mUI.enableCameraControls(false);
 
         mMediaRecorderRecording = true;
+        mMediaRecorderPausing = false;
+        mUI.resetPauseButton();
         if (!Util.systemRotationLocked(mActivity)) {
             mActivity.getOrientationManager().lockOrientation();
         }
+        mRecordingTotalTime = 0L;
         mRecordingStartTime = SystemClock.uptimeMillis();
         mUI.showRecordingUI(true, mParameters.isZoomSupported());
 
@@ -1777,6 +1784,21 @@ public class VideoModule implements CameraModule,
         if (mCaptureTimeLapse) {
             mUI.showTimeLapseUI(true);
         }
+    }
+
+    private void pauseVideoRecording() {
+        Log.v(TAG, "pauseVideoRecording");
+        mMediaRecorderPausing = true;
+        mRecordingTotalTime += SystemClock.uptimeMillis() - mRecordingStartTime;
+        mMediaRecorder.pause();
+    }
+
+    private void resumeVideoRecording() {
+        Log.v(TAG, "resumeVideoRecording");
+        mMediaRecorderPausing = false;
+        mRecordingStartTime = SystemClock.uptimeMillis();
+        updateRecordingTime();
+        mMediaRecorder.start();
     }
 
     private boolean stopVideoRecording() {
@@ -1866,7 +1888,7 @@ public class VideoModule implements CameraModule,
         UsageStatistics.onEvent(UsageStatistics.COMPONENT_CAMERA,
                 fail ? UsageStatistics.ACTION_CAPTURE_FAIL :
                     UsageStatistics.ACTION_CAPTURE_DONE, "Video",
-                    SystemClock.uptimeMillis() - mRecordingStartTime);
+                    SystemClock.uptimeMillis() - mRecordingStartTime + mRecordingTotalTime);
         return fail;
     }
 
@@ -1942,8 +1964,11 @@ public class VideoModule implements CameraModule,
         if (!mMediaRecorderRecording) {
             return;
         }
+        if (mMediaRecorderPausing) {
+            return;
+        }
         long now = SystemClock.uptimeMillis();
-        long delta = now - mRecordingStartTime;
+        long delta = now - mRecordingStartTime + mRecordingTotalTime;
 
         // Starting a minute before reaching the max duration
         // limit, we'll countdown the remaining time instead.
@@ -2582,5 +2607,15 @@ public class VideoModule implements CameraModule,
     @Override
     public void onMediaSaveServiceConnected(MediaSaveService s) {
         // do nothing.
+    }
+
+    @Override
+    public void onButtonPause() {
+        pauseVideoRecording();
+    }
+
+    @Override
+    public void onButtonContinue() {
+        resumeVideoRecording();
     }
 }
