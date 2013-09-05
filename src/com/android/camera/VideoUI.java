@@ -265,7 +265,7 @@ public class VideoUI implements SurfaceHolder.Callback, PieRenderer.PieListener,
       boolean location = RecordLocationPreference.get(
               prefs, mActivity.getContentResolver());
       mOnScreenIndicators.updateLocationIndicator(location);
-
+      mOnScreenIndicators.updateVideoHdrScreenIndicator(mActivity, param);
     }
 
     public void setAspectRatio(double ratio) {

@@ -180,6 +180,22 @@ public class OnScreenIndicators {
     }
 
     /**
+     * Set the scene indicator depending on the given video hdr value.
+     *
+     */
+    public void updateVideoHdrScreenIndicator(CameraActivity activity, Parameters param) {
+        if (mSceneIndicator == null) {
+            return;
+        }
+        String videoHdr = param.get(Util.VIDEO_HDR);
+        if (Util.isVideoHDROn(activity, param)){
+            mSceneIndicator.setImageResource(R.drawable.ic_indicator_sce_hdr);
+        } else {
+            mSceneIndicator.setImageResource(R.drawable.ic_indicator_sce_off);  
+        }   
+    }
+    
+    /**
      * Sets the visibility of all indicators.
      *
      * @param visibility View.VISIBLE, View.GONE etc.

@@ -1902,6 +1902,14 @@ public class VideoModule implements CameraModule,
                 CameraProfile.QUALITY_HIGH);
         mParameters.setJpegQuality(jpegQuality);
 
+        // HDR
+        if (Util.isVideoHdrSupported(mParameters)) {
+            String videohdr = mPreferences.getString(
+                    CameraSettings.KEY_VIDEOCAMERA_HDR,
+                    mActivity.getString(R.string.pref_video_hdr_default));
+            mParameters.set(Util.VIDEO_HDR, videohdr);
+        }
+
         mActivity.mCameraDevice.setParameters(mParameters);
         // Keep preview size up to date.
         mParameters = mActivity.mCameraDevice.getParameters();

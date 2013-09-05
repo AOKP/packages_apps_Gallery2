@@ -75,4 +75,13 @@
             camera:largeIcons="@array/camera_recordlocation_largeicons"
             camera:entries="@array/pref_camera_recordlocation_entries"
             camera:entryValues="@array/pref_camera_recordlocation_entryvalues" />
+    <IconListPreference
+            camera:key="pref_video_hdr_key"
+            camera:defaultValue="@string/pref_video_hdr_default"
+            camera:title="@string/pref_video_hdr"
+            camera:icons="@array/pref_video_hdr_icons"
+            camera:largeIcons="@array/pref_video_hdr_icons"
+            camera:entries="@array/pref_video_hdr_entries"
+            camera:labelList="@array/pref_video_hdr_labels"
+            camera:entryValues="@array/pref_video_hdr_entryvalues" />
 </PreferenceGroup>

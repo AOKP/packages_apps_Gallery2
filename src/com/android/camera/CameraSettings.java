@@ -39,6 +39,10 @@ import com.android.gallery3d.common.ApiHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Locale;
 
 /**
@@ -69,6 +73,7 @@ public class CameraSettings {
     public static final String KEY_VIDEO_FIRST_USE_HINT_SHOWN = "pref_video_first_use_hint_shown_key";
     public static final String KEY_PHOTOSPHERE_PICTURESIZE = "pref_photosphere_picturesize_key";
     public static final String KEY_STORAGE = "pref_camera_storage_key";
+    public static final String KEY_VIDEOCAMERA_HDR = "pref_video_hdr_key";
 
     public static final String EXPOSURE_DEFAULT_VALUE = "0";
 
@@ -179,6 +184,7 @@ public class CameraSettings {
         ListPreference videoEffect = group.findPreference(KEY_VIDEO_EFFECT);
         ListPreference cameraHdr = group.findPreference(KEY_CAMERA_HDR);
         ListPreference storage = group.findPreference(KEY_STORAGE);
+        ListPreference videoHdr = group.findPreference(KEY_VIDEOCAMERA_HDR);
 
         // Since the screen could be loaded from different resources, we need
         // to check if the preference is available here
@@ -241,6 +247,9 @@ public class CameraSettings {
         if (storage != null) {
             buildStorage(group, storage);
         }
+        if (videoHdr != null && !Util.isVideoHdrSupported(mParameters)) {
+	        removePreference(group, videoHdr.getKey());
+		}
     }
 
     private void buildStorage(PreferenceGroup group, ListPreference storage) {
@@ -677,5 +686,26 @@ public class CameraSettings {
         }
 
         filterUnsupportedOptions(group, videoEffect, supported);
+    }
+
+    public static void dumpParameters(Parameters params) {
+        Set<String> sortedParams = new TreeSet<String>();
+        sortedParams.addAll(Arrays.asList(params.flatten().split(";")));
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        Iterator<String> i = sortedParams.iterator();
+        while (i.hasNext()) {
+            String nextParam = i.next();
+            if ((sb.length() + nextParam.length()) > 2044) {
+                Log.d(TAG, "Parameters: " + sb.toString());
+                sb = new StringBuilder();
+            }
+            sb.append(nextParam);
+            if (i.hasNext()) {
+                sb.append(", ");
+            }
+        }
+        sb.append("]");
+        Log.d(TAG, "Parameters: " + sb.toString());
     }
 }
