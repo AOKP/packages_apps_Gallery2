@@ -2009,6 +2009,7 @@ public class PhotoModule
             updateCameraParametersPreference();
         }
 
+        Util.dumpParameters(mParameters);
         mCameraDevice.setParameters(mParameters);
     }
 
