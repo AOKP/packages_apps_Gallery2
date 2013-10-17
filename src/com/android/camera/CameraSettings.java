@@ -244,6 +244,12 @@ public class CameraSettings {
                     || !Util.isCameraHdrSupported(mParameters))) {
             removePreference(group, cameraHdr.getKey());
         }
+        if (videoHdr != null) {
+            if (!mContext.getResources().getBoolean(R.bool.enableVideoHDR)) {
+                removePreference(group, videoHdr.getKey());
+            }
+            filterUnsupportedOptions(group, videoHdr, mParameters.getSupportedVideoHDRModes());
+        }
         if (storage != null) {
             buildStorage(group, storage);
         }
