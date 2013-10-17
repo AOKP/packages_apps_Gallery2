@@ -202,6 +202,8 @@ public class VideoModule implements CameraModule,
     private int mVideoWidth;
     private int mVideoHeight;
 
+    private boolean mEnableHFR = false;
+
     private StartPreviewThread mStartPreviewThread;
 
     private final MediaSaveService.OnMediaSavedListener mOnVideoSavedListener =
@@ -743,6 +745,9 @@ public class VideoModule implements CameraModule,
                 mPreferences.getString(CameraSettings.KEY_VIDEO_QUALITY,
                         defaultQuality);
         int quality = Integer.valueOf(videoQuality);
+
+        // Enable HFR mode for WVGA
+        mEnableHFR = quality == CamcorderProfile.QUALITY_WVGA;
 
         // Set video quality.
         Intent intent = mActivity.getIntent();
@@ -2076,6 +2081,14 @@ public class VideoModule implements CameraModule,
                     mActivity.getString(R.string.pref_video_hdr_default));
             mParameters.set(Util.VIDEO_HDR, videohdr);
         }
+
+        // Enable HFR mode for WVGA
+        List<String> hfrModes = mParameters.getSupportedVideoHighFrameRateModes();
+        if (hfrModes.size() > 0) {
+            mParameters.setVideoHighFrameRate(mEnableHFR ? hfrModes.get(hfrModes.size() - 1) : "off");
+        }
+
+        Util.dumpParameters(mParameters);
 
         mActivity.mCameraDevice.setParameters(mParameters);
         // Keep preview size up to date.
