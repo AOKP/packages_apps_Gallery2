@@ -203,6 +203,7 @@
     <string name="please_wait" msgid="7296066089146487366">"请稍候"</string>
     <string name="save_into" msgid="9155488424829609229">"正在将视频保存到“<xliff:g id="ALBUM_NAME">%1$s</xliff:g>”…"</string>
     <string name="trim_too_short" msgid="751593965620665326">"无法剪辑：目标视频太短"</string>
+    <string name="mute_nosupport">无法静音：不支持的视频</string>
     <string name="pano_progress_text" msgid="1586851614586678464">"正在渲染全景图"</string>
     <string name="save" msgid="613976532235060516">"保存"</string>
     <string name="ingest_scanning" msgid="1062957108473988971">"正在扫描内容..."</string>
